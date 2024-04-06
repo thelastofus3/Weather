@@ -1,16 +1,19 @@
-package com.thelastofus.weatherapp;
+package com.thelastofus.weatherapp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.thelastofus.weatherapp.util.UserValidator;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/")
 public class HomeController {
 
-    @GetMapping
+
+    @GetMapping("/")
     String showTimestamp(){
         return LocalDateTime.now().toString();
     }
