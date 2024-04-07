@@ -22,13 +22,13 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @NotBlank(message = "login should be empty")
-    @Size(min = 5,max = 100,message = "login should be between 5 and 100 characters")
+    @NotBlank(message = "Login should not be empty")
+    @Size(min = 5,max = 100,message = "Login should be between 5 and 100 characters")
     @Column(name = "username",unique = true)
     String username;
     @Column(name = "password")
-    @Size(min = 5,max = 100,message = "password should be between 5 and 100 characters")
-    @NotBlank(message = "password should be empty")
+    @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
+    @NotBlank(message = "Password should not be empty")
     String password;
     @OneToMany
     @Builder.Default

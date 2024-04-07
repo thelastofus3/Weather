@@ -1,7 +1,6 @@
 package com.thelastofus.weatherapp.util;
 
 import com.thelastofus.weatherapp.dto.UserDTO;
-import com.thelastofus.weatherapp.exception.UserAlreadyExistException;
 import com.thelastofus.weatherapp.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

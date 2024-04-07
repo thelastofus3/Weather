@@ -1,9 +1,14 @@
 package com.thelastofus.weatherapp.config;
 
+import com.thelastofus.weatherapp.service.UserAuthenticationServiceImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,12 +44,11 @@ public class SecurityConfig {
     }
     @Bean
     public PasswordEncoder getPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
-    //временно тут если будет расширяться config будет отдельно если нет перемейновать securit config
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }
+
 }

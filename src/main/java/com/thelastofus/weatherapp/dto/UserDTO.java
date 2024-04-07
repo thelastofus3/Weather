@@ -15,11 +15,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @PasswordMatches
+@Builder
 public class UserDTO {
-    @NotBlank(message = "Login should be empty")
+    @NotBlank(message = "Login should not be empty")
     @Size(min = 5,max = 100,message = "Login should be between 5 and 100 characters")
     String username;
-    @NotBlank(message = "Password should be empty")
+    @NotBlank(message = "Password should not be empty")
     @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
     String password;
     String matchingPassword;
