@@ -12,7 +12,42 @@
 </header>
 <div class="container mt-5 pt-5">
     <div class="row">
-
+        <div class="card mb-3 m-4" style="max-width: 390px;" th:each="weather : ${weathers}">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-items-center">
+                    <img src="https://openweathermap.org/img/wn/04d@4x.png" class="img-fluid rounded-start" alt="image weather">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${weather.getName()}">London</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${weather.getCurrentTime()}">13:12:27</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${weather.getSys().getCountry()}">RU</h6>
+                        <h1 th:text="${weather.getMain().getTemperature() + '°C'}">22.91°C</h1>
+                        <p class="card-text">Feels like <small class="text-body-secondary" th:text="${weather.getMain().getFeelsLike() + '°C'}">22.66°C</small></p>
+                    </div>
+                </div>
+                <table class="table table-dark ">
+                <tbody>
+                <tr>
+                    <td><i class="bi bi-thermometer"></i>Min <span th:text="${weather.getMain().getMinTemperature()  + '°C'}">22.91°C</span></td>
+                    <td><i class="bi bi-thermometer-high"></i>Max <span th:text="${weather.getMain().getMaxTemperature()}  + '°C'">22.91°C</span></td>
+                </tr>
+                <tr>
+                    <td><i class="bi bi-cloudy"></i>Clouds <span th:text="${weather.getClouds().getAll()}">61%</span></td>
+                    <td><i class="bi bi-droplet"></i>Humidity <span th:text="${weather.getMain().getHumidity()}">92%</span></td>
+                </tr>
+                <tr>
+                    <td><i class="bi bi-wind"></i><span th:text="${weather.getWind().getDegrees()} + '° ' + ${weather.getWind().getSpeed()} + 'km/h'">170° 1.68km/h</span></td>
+                    <td><i class="bi bi-chevron-double-down"></i>Pressure <span th:text="${weather.getMain().getPressure() + 'hPa'}">1016 hPa</span></td>
+                </tr>
+                <tr>
+                    <td><i class="bi bi-sunrise"></i><span th:text="${weather.getSys().getSunrise()}">22:44:08</span></td>
+                    <td><i class="bi bi-sunset"></i><span th:text="${weather.getSys().getSunset()}">10:31:46</span></td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 </body>

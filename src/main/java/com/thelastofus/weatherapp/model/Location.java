@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -23,10 +22,11 @@ public class Location {
     @Column(name = "name")
     String name;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    User owner;
+    @JoinColumn(name = "user_id")
+    User owner ;
     @Column(name = "latitude")
     BigDecimal latitude;
     @Column(name = "longitude")
     BigDecimal longitude;
+
 }

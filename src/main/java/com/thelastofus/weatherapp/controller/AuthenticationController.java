@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -43,7 +42,7 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()){
             return "/auth/registration";
         }
-        userService.register(userMapper.converToUser(userDTO));
+        userService.register(userMapper.convertToUser(userDTO));
 
         return "redirect:/auth/login";
     }

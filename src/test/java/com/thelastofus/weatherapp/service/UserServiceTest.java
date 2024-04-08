@@ -51,7 +51,7 @@ class UserServiceTest {
                 .password("password")
                 .matchingPassword("password").build();
 
-        userService.register(userMapper.converToUser(userDTO));
+        userService.register(userMapper.convertToUser(userDTO));
 
         Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
         assertTrue(user.isPresent(),"Expected user to be present in the database");
@@ -69,9 +69,9 @@ class UserServiceTest {
                 .password("password")
                 .matchingPassword("password").build();
 
-        userService.register(userMapper.converToUser(userDTO));
+        userService.register(userMapper.convertToUser(userDTO));
 
-        assertThrows(Exception.class, () -> userService.register(userMapper.converToUser(userDTO)));
+        assertThrows(Exception.class, () -> userService.register(userMapper.convertToUser(userDTO)));
 
         assertEquals(1,userRepository.findAll().size(),"User should be save once");
 

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -30,7 +29,7 @@ public class User {
     @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
     @NotBlank(message = "Password should not be empty")
     String password;
-    @OneToMany
-    @Builder.Default
-    List<Location> locations = new ArrayList<>();
+    @OneToMany(mappedBy = "owner")
+    List<Location> locations ;
+
 }

@@ -1,12 +1,17 @@
 package com.thelastofus.weatherapp.service;
 
-import com.thelastofus.weatherapp.dto.LocationDTO;
+import com.thelastofus.weatherapp.dto.LocationResponseApi;
 import com.thelastofus.weatherapp.dto.WeatherDTO;
+import com.thelastofus.weatherapp.model.Location;
+import com.thelastofus.weatherapp.model.User;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface LocationService {
-    List<LocationDTO> findLocationByName(String q);
+    List<LocationResponseApi> findLocationByName(String q);
 
-    WeatherDTO addLocation();
+    List<WeatherDTO> showLocation(User user);
+
+    void saveLocation(Location location, Principal principal);
 }

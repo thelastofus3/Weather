@@ -1,28 +1,29 @@
 package com.thelastofus.weatherapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import com.thelastofus.weatherapp.model.User;
+import com.thelastofus.weatherapp.util.PasswordMatches;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 
 @Getter
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@PasswordMatches
+@Builder
 public class LocationDTO {
 
-    @JsonProperty("name")
     String name;
 
-    @JsonProperty("lat")
+    User owner = new User();
+
     BigDecimal latitude;
 
-    @JsonProperty("lon")
     BigDecimal longitude;
-
-    @JsonProperty("country")
-    String country;
-
-    @JsonProperty("state")
-    String state;
 
 }

@@ -1,7 +1,11 @@
 package com.thelastofus.weatherapp.controller;
 
 import com.thelastofus.weatherapp.dto.LocationDTO;
+import com.thelastofus.weatherapp.dto.LocationResponseApi;
+import com.thelastofus.weatherapp.mapper.LocationMapper;
+import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.service.LocationService;
+import com.thelastofus.weatherapp.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,6 +25,8 @@ import java.util.List;
 public class HomeController {
 
     LocationService locationService;
+    LocationMapper locationMapper;
+    UserService userService;
 
     @ModelAttribute
     public void addAttributes(Principal principal,Model model){
@@ -28,7 +34,11 @@ public class HomeController {
     }
 
     @GetMapping()
-    public String showHomePage(){
+    public String showHomePage(Model model,Principal principal){
+        User user = userService.findByName(principal.getName());
+        if (user.getLocations() != null || !user.getLocations().isEmpty()){
+            model.addAttribute("weathers",locationService.showLocation(user));
+        }
         return "main/home";
     }
     @PostMapping("/search")
@@ -36,14 +46,13 @@ public class HomeController {
         if (q == null || q.isBlank()){
             return "redirect:/";
         }
-        List<LocationDTO> locations = locationService.findLocationByName(q.replace(' ','_'));
+        List<LocationResponseApi> locations = locationService.findLocationByName(q.replace(' ','_'));
         model.addAttribute("locations",locations);
         return "main/search";
     }
     @PostMapping()
-    public String addLocation(){
-        locationService.addLocation();
-        return "main/home";
+    public String addLocation(@ModelAttribute("location_add") LocationDTO locationDTO,Model model,Principal principal){
+        locationService.saveLocation(locationMapper.convertToLocation(locationDTO),principal);
+        return "redirect:/";
     }
-
 }
