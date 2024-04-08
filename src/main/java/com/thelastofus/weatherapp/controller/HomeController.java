@@ -1,8 +1,7 @@
 package com.thelastofus.weatherapp.controller;
 
-import com.thelastofus.weatherapp.response.LocationApi;
-import com.thelastofus.weatherapp.service.WeatherService;
-import jdk.swing.interop.SwingInterOpUtils;
+import com.thelastofus.weatherapp.dto.LocationDTO;
+import com.thelastofus.weatherapp.service.LocationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,18 +20,30 @@ import java.util.List;
 @Slf4j
 public class HomeController {
 
-    WeatherService weatherService;
+    LocationService locationService;
+
+    @ModelAttribute
+    public void addAttributes(Principal principal,Model model){
+        model.addAttribute("username",principal.getName());
+    }
 
     @GetMapping()
-    public String showHomePage(Principal principal, Model model){
-        model.addAttribute("username",principal.getName());
-        weatherService.findLocationByName("fd");
+    public String showHomePage(){
         return "main/home";
     }
     @PostMapping("/search")
-    public String searchLocation(Principal principal,@RequestParam(name = "q") String q,Model model){
-        List<LocationApi> locations = weatherService.findLocationByName(q);
+    public String searchLocation(@RequestParam(name = "q") String q,Model model){
+        if (q == null || q.isBlank()){
+            return "redirect:/";
+        }
+        List<LocationDTO> locations = locationService.findLocationByName(q.replace(' ','_'));
         model.addAttribute("locations",locations);
         return "main/search";
     }
+    @PostMapping()
+    public String addLocation(){
+        locationService.addLocation();
+        return "main/home";
+    }
+
 }

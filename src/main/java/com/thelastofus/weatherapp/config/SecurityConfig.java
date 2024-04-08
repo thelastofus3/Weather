@@ -52,9 +52,4 @@ public class SecurityConfig {
         return new ModelMapper();
     }
 
-    @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
-
 }

@@ -1,15 +1,14 @@
-package com.thelastofus.weatherapp.response;
+package com.thelastofus.weatherapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LocationApi {
+public class LocationDTO {
 
     @JsonProperty("name")
     String name;
@@ -26,14 +25,4 @@ public class LocationApi {
     @JsonProperty("state")
     String state;
 
-    @Override
-    public String toString() {
-        return "LocationApi{" +
-                "name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                '}';
-    }
 }

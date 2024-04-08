@@ -8,17 +8,7 @@
     <title>Weather</title>
 </head>
 <body>
-<header>
-    <nav class="navbar bg-body-tertiary" style="padding: 0 !important;">
-        <div class="container">
-            <div class="col">
-                <a class="navbar-brand" style="display: flex; align-items: center;">
-                    <i class="bi bi-cloud-fill" style="font-size: 2.7em"></i>
-                    <p style="margin-top: auto; margin-bottom: auto; margin-left: 10px">Weather</p>
-                </a>
-            </div>
-        </div>
-    </nav>
+<header th:insert="~{fragments/header :: header1}">
 </header>
 <section>
     <div class="container mt-5 pt-5">
