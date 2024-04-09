@@ -15,7 +15,7 @@
         <div class="card mb-3 m-4" style="max-width: 390px;" th:each="weather : ${weathers}">
             <div class="row g-0">
                 <div class="col-md-4 d-flex align-items-center">
-                    <img src="https://openweathermap.org/img/wn/04d@4x.png" class="img-fluid rounded-start" alt="image weather">
+                    <img th:src="@{${'https://openweathermap.org/img/wn/' + weather.getWeather().getFirst().getIcon() + '@4x.png'}}" class="img-fluid rounded-start" alt="weather icon">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -46,6 +46,16 @@
                 </tr>
                 </tbody>
                 </table>
+                <div class="d-flex justify-content-between">
+                    <form action="" class="m-3">
+                        <button class="btn btn-secondary">Forecast</button>
+                    </form>
+                    <form th:method="DELETE" th:action="@{/}" class="m-3">
+                        <input type="hidden"  name="latitude" th:value="${weather.getCoordinates().getLatitude()}">
+                        <input type="hidden"  name="longitude" th:value="${weather.getCoordinates().getLongitude()}">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

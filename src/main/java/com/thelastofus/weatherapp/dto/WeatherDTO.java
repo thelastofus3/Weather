@@ -19,6 +19,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherDTO {
 
+    @JsonProperty("coord")
+    Coordinates coordinates;
+
     @JsonProperty("name")
     String name;
 
@@ -40,6 +43,5 @@ public class WeatherDTO {
     @JsonProperty("dt")
     @JsonDeserialize(using = UnixToLocalDateTimeDeserializer.class)
     LocalTime currentTime;
-
 
 }

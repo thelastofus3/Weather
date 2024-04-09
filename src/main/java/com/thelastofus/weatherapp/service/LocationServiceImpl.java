@@ -1,7 +1,7 @@
 package com.thelastofus.weatherapp.service;
 
 
-import com.thelastofus.weatherapp.dto.LocationResponseApi;
+import com.thelastofus.weatherapp.dto.LocationDTO;
 import com.thelastofus.weatherapp.dto.WeatherDTO;
 import com.thelastofus.weatherapp.model.Location;
 import com.thelastofus.weatherapp.model.User;
@@ -16,9 +16,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,50 +32,6 @@ public class LocationServiceImpl implements LocationService {
     LocationRepository locationRepository;
     UserRepository userRepository;
 
-    static String findLocations = "http://api.openweathermap.org/geo/1.0/direct";
-    static String findLocation = "https://api.openweathermap.org/data/2.5/weather";
-    static String apiKey = "e5a9d8d7b1475fbb285e054b313b8852";
-
-    @Override
-    public List<LocationResponseApi> findLocationByName(String q) {
-        String uri = UriComponentsBuilder.fromHttpUrl(findLocations)
-                .queryParam("q", q)
-                .queryParam("limit", 4)
-                .queryParam("appid", apiKey)
-                .toUriString();
-
-        Flux<LocationResponseApi> locations = WebClient.create()
-                .get()
-                .uri(uri)
-                .retrieve()
-                .bodyToFlux(LocationResponseApi.class);
-
-
-        return locations.collectList().block();
-    }
-
-    @Override
-    public List<WeatherDTO> showLocation(User user) {
-        List<WeatherDTO> weatherList = new ArrayList<>();
-        for (Location location : user.getLocations()){
-
-            String uri = UriComponentsBuilder.fromHttpUrl(findLocation)
-                    .queryParam("lat", location.getLatitude())
-                    .queryParam("lon", location.getLongitude())
-                    .queryParam("appid", apiKey)
-                    .queryParam("units", "metric")
-                    .toUriString();
-
-            Flux<WeatherDTO> weather = WebClient.create()
-                    .get()
-                    .uri(uri)
-                    .retrieve()
-                    .bodyToFlux(WeatherDTO.class);
-
-            weatherList.addAll(weather.collectList().block());
-        }
-        return weatherList;
-    }
 
     @Override
     @Transactional
@@ -81,4 +40,21 @@ public class LocationServiceImpl implements LocationService {
         location.setOwner(user);
         locationRepository.save(location);
     }
+
+    @Override
+    @Transactional
+    public void deleteLocation(Location location) {
+        System.out.println(location.getName());
+        locationRepository.delete(location);
+    }
+
+
+    @Override
+    public List<Location> findLocationsByCoordinates(BigDecimal latitude, BigDecimal longitude, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        return locationRepository.findByLatitudeAndLongitudeAndOwner(latitude,longitude,user);
+    }
+
+
+
 }

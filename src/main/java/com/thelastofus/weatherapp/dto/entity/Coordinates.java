@@ -1,28 +1,21 @@
-package com.thelastofus.weatherapp.dto;
+package com.thelastofus.weatherapp.dto.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 
+@Data
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LocationResponseApi {
-
-    @JsonProperty("name")
-    String name;
+public class Coordinates {
 
     @JsonProperty("lat")
     BigDecimal latitude;
 
     @JsonProperty("lon")
     BigDecimal longitude;
-
-    @JsonProperty("country")
-    String country;
-
-    @JsonProperty("state")
-    String state;
 
 }
