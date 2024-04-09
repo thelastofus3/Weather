@@ -47,7 +47,9 @@
                 </tbody>
                 </table>
                 <div class="d-flex justify-content-between">
-                    <form action="" class="m-3">
+                    <form th:action="@{/forecast}" th:method="GET" class="m-3">
+                        <input type="hidden"  name="latitude" th:value="${weather.getCoordinates().getLatitude()}">
+                        <input type="hidden"  name="longitude" th:value="${weather.getCoordinates().getLongitude()}">
                         <button class="btn btn-secondary">Forecast</button>
                     </form>
                     <form th:method="DELETE" th:action="@{/}" class="m-3">

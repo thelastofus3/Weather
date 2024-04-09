@@ -1,8 +1,7 @@
 package com.thelastofus.weatherapp.service;
 
 
-import com.thelastofus.weatherapp.dto.LocationDTO;
-import com.thelastofus.weatherapp.dto.WeatherDTO;
+
 import com.thelastofus.weatherapp.model.Location;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.LocationRepository;
@@ -12,17 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.LinkedHashMap;
 
+import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -54,7 +47,5 @@ public class LocationServiceImpl implements LocationService {
         User user = userRepository.findByUsername(principal.getName()).orElse(null);
         return locationRepository.findByLatitudeAndLongitudeAndOwner(latitude,longitude,user);
     }
-
-
 
 }

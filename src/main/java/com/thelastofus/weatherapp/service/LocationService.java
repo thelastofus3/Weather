@@ -1,9 +1,7 @@
 package com.thelastofus.weatherapp.service;
 
-import com.thelastofus.weatherapp.dto.LocationDTO;
-import com.thelastofus.weatherapp.dto.WeatherDTO;
 import com.thelastofus.weatherapp.model.Location;
-import com.thelastofus.weatherapp.model.User;
+
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -16,6 +14,5 @@ public interface LocationService {
     void deleteLocation(Location location);
 
     List<Location> findLocationsByCoordinates(BigDecimal latitude, BigDecimal longitude,Principal principal);
-
 
 }

@@ -1,5 +1,6 @@
 package com.thelastofus.weatherapp.service;
 
+import com.thelastofus.weatherapp.dto.ForecastDTO;
 import com.thelastofus.weatherapp.dto.LocationDTO;
 import com.thelastofus.weatherapp.dto.WeatherDTO;
 import com.thelastofus.weatherapp.model.Location;
@@ -13,8 +14,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +25,8 @@ import java.util.List;
 public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
     static String findLocations = "http://api.openweathermap.org/geo/1.0/direct";
     static String findLocation = "https://api.openweathermap.org/data/2.5/weather";
+
+    static String findForecast = "https://api.openweathermap.org/data/2.5/forecast";
     static String apiKey = "e5a9d8d7b1475fbb285e054b313b8852";
 
     @Override
@@ -69,5 +73,41 @@ public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
             weatherList.addAll(weatherDTOs);
         }
         return weatherList;
+    }
+
+    @Override
+    public List<ForecastDTO> findForecastForLocation(BigDecimal latitude, BigDecimal longitude) {
+        String uri = UriComponentsBuilder.fromHttpUrl(findForecast)
+                .queryParam("lat",  latitude)
+                .queryParam("lon", longitude)
+                .queryParam("appid", apiKey)
+                .queryParam("units", "metric")
+                .toUriString();
+
+        Flux<ForecastDTO> forecast = WebClient.create()
+                .get()
+                .uri(uri)
+                .retrieve()
+                .bodyToFlux(ForecastDTO.class);
+
+
+        System.out.println(forecast.collectList().block());
+        return forecast.collectList().block();
+    }
+
+    @Override
+    public List<ForecastDTO> forecastByDay(List<ForecastDTO> forecastList) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        List<ForecastDTO> result = new ArrayList<>();
+        forecastList.forEach(forecastDTO -> {
+            forecastDTO.getForecast().forEach(forecast -> {
+                if ("14:00".equals(forecast.getCurrentTime().format(formatter))) {
+                    ForecastDTO newForecastDTO = new ForecastDTO();
+                    newForecastDTO.setForecast(Collections.singletonList(forecast));
+                    result.add(newForecastDTO);
+                }
+            });
+        });
+        return result;
     }
 }

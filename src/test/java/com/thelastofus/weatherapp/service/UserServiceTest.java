@@ -4,6 +4,7 @@ import com.thelastofus.weatherapp.dto.UserDTO;
 import com.thelastofus.weatherapp.mapper.UserMapper;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,22 +45,9 @@ class UserServiceTest {
                 registry.add("spring.jpa.generate-ddl",() -> true);
     }
 
-    @Test
-    void register_successSaveUserInDatabase() {
-        UserDTO userDTO = UserDTO.builder()
-                .username("goblin")
-                .password("password")
-                .matchingPassword("password").build();
-
-        userService.register(userMapper.convertToUser(userDTO));
-
-        Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
-        assertTrue(user.isPresent(),"Expected user to be present in the database");
-
-        user.ifPresent(u -> {
-            assertEquals(userDTO.getUsername(),u.getUsername(),"Username should be equals");
-            assertNotEquals(userDTO.getPassword(),u.getPassword(),"Password should not be equals");
-        });
+    @BeforeEach
+    void resetDateInDatabase(){
+        userRepository.deleteAll();
     }
 
     @Test
@@ -76,4 +64,24 @@ class UserServiceTest {
         assertEquals(1,userRepository.findAll().size(),"User should be save once");
 
     }
+
+    @Test
+    void register_successSaveUserInDatabase() {
+        UserDTO userDTO = UserDTO.builder()
+                .username("goblinj")
+                .password("password")
+                .matchingPassword("password").build();
+
+        userService.register(userMapper.convertToUser(userDTO));
+
+        Optional<User> user = userRepository.findByUsername(userDTO.getUsername());
+        assertTrue(user.isPresent(),"Expected user to be present in the database");
+
+        user.ifPresent(u -> {
+            assertEquals(userDTO.getUsername(),u.getUsername(),"Username should be equals");
+            assertNotEquals(userDTO.getPassword(),u.getPassword(),"Password should not be equals");
+        });
+    }
+
+
 }
