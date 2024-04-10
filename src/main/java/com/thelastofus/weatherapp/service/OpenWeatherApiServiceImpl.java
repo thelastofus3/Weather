@@ -8,6 +8,8 @@ import com.thelastofus.weatherapp.model.User;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -23,11 +25,23 @@ import java.util.*;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
-    static String findLocations = "http://api.openweathermap.org/geo/1.0/direct";
-    static String findLocation = "https://api.openweathermap.org/data/2.5/weather";
 
-    static String findForecast = "https://api.openweathermap.org/data/2.5/forecast";
-    static String apiKey = "e5a9d8d7b1475fbb285e054b313b8852";
+    @Value("${weather.find.locations}")
+    @NonFinal
+    String findLocations;
+
+    @Value("${weather.find.location}")
+    @NonFinal
+    String findLocation;
+
+    @Value("${weather.find.forecast}")
+    @NonFinal
+    String findForecast;
+
+    @Value("${api.key}")
+    @NonFinal
+    String apiKey;
+
 
     @Override
     public List<LocationDTO> findLocationDTOByName(String q) {
