@@ -1,7 +1,6 @@
 package com.thelastofus.weatherapp.service;
 
-
-
+import com.thelastofus.weatherapp.exception.UserNotFoundException;
 import com.thelastofus.weatherapp.model.Location;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.LocationRepository;
@@ -29,7 +28,8 @@ public class LocationServiceImpl implements LocationService {
     @Override
     @Transactional
     public void saveLocation(Location location, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        User user = userRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User: " + principal.getName() + " not found"));
         location.setOwner(user);
         locationRepository.save(location);
     }
@@ -37,14 +37,14 @@ public class LocationServiceImpl implements LocationService {
     @Override
     @Transactional
     public void deleteLocation(Location location) {
-        System.out.println(location.getName());
         locationRepository.delete(location);
     }
 
 
     @Override
     public List<Location> findLocationsByCoordinates(BigDecimal latitude, BigDecimal longitude, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        User user = userRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UserNotFoundException("User: " + principal.getName() + " not found"));
         return locationRepository.findByLatitudeAndLongitudeAndOwner(latitude,longitude,user);
     }
 

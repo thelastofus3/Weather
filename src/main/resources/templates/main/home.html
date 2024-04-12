@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Weather</title>
 </head>
-<body>
+<body class="min-vh-100 d-flex flex-column">
 <header th:insert="~{fragments/header :: header2}">
 </header>
-<div class="container mt-5 pt-5">
-    <div class="row">
-        <div class="card mb-3 m-4" style="max-width: 390px;" th:each="weather : ${weathers}">
+<div class="container mt-5 pt-5 flex-grow-1 ">
+    <div class="row ">
+        <div class="card mb-3 m-4 " style="max-width: 390px;" th:each="weather : ${weathers}">
             <div class="row g-0">
-                <div class="col-md-4 d-flex align-items-center">
+                <div class="col-md-4 d-flex align-items-center ">
                     <img th:src="@{${'https://openweathermap.org/img/wn/' + weather.getWeather().getFirst().getIcon() + '@4x.png'}}" class="img-fluid rounded-start" alt="weather icon">
                 </div>
                 <div class="col-md-8">
@@ -33,8 +33,8 @@
                     <td><i class="bi bi-thermometer-high"></i>Max <span th:text="${weather.getMain().getMaxTemperature()}  + '°C'">22.91°C</span></td>
                 </tr>
                 <tr>
-                    <td><i class="bi bi-cloudy"></i>Clouds <span th:text="${weather.getClouds().getAll()}">61%</span></td>
-                    <td><i class="bi bi-droplet"></i>Humidity <span th:text="${weather.getMain().getHumidity()}">92%</span></td>
+                    <td><i class="bi bi-cloudy"></i>Clouds <span th:text="${weather.getClouds().getAll() + '%'}">61%</span></td>
+                    <td><i class="bi bi-droplet"></i>Humidity <span th:text="${weather.getMain().getHumidity() + '%'}">92%</span></td>
                 </tr>
                 <tr>
                     <td><i class="bi bi-wind"></i><span th:text="${weather.getWind().getDegrees()} + '° ' + ${weather.getWind().getSpeed()} + 'km/h'">170° 1.68km/h</span></td>
@@ -62,5 +62,7 @@
         </div>
     </div>
 </div>
+<footer th:insert="~{fragments/footer :: footer}">
+</footer>
 </body>
 </html>

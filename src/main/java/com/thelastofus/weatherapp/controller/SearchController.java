@@ -32,7 +32,7 @@ public class SearchController {
     @GetMapping()
     public String showLocation(Model model, Principal principal){
         User user = userService.findByName(principal.getName());
-        if (user.getLocations() != null || !user.getLocations().isEmpty()){
+        if (user.getLocations() != null){
             model.addAttribute("weathers",openWeatherApiService.showLocation(user));
         }
         return "main/home";

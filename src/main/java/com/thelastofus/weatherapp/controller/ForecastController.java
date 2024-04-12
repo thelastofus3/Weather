@@ -40,7 +40,6 @@ public class ForecastController {
                                    Model model){
         List<ForecastDTO> forecast = openWeatherApiService.findForecastForLocation(latitude,longitude);
         List<ForecastDTO> forecastByDay = openWeatherApiService.forecastByDay(forecast);
-        System.out.println(forecastByDay);
         model.addAttribute("forecast",forecast);
         model.addAttribute("forecastByDay",forecastByDay);
         return "forecast/main";
