@@ -35,7 +35,7 @@ public class User implements Serializable {
     @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
     @NotBlank(message = "Password should not be empty")
     String password;
-    @OneToMany(mappedBy = "owner",orphanRemoval = true,fetch = FetchType.EAGER)
-    List<Location> locations;
+    @OneToMany(mappedBy = "owner")
+    List<Location> locations ;
 
 }
