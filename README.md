@@ -1,52 +1,52 @@
 # Weather App
 
-## Функционал приложения
+## Application Functionality
 
-### Работа с пользователями:
-- Регистрация
-- Авторизация
+### User Management:
+- Registration
+- Authorization
 - Logout
 
-### Работа с локациями:
-- Поиск
-- Добавление в список
-- Просмотр списка локаций, для каждой локации отображается название и температура
-- Просмотр температуры по часам и дням
-- Удаление из списка
+### Location Management:
+- Search
+- Add to list
+- View list of locations, each location displays the name and temperature
+- View temperature by hours and days
+- Remove from list
 
-## Интерфейс приложения
+## Application Interface
 
-Для вёрстки используется Bootstrap 5.
+Bootstrap 5 is used for layout.
 
-### Заголовок
+### Header
 
-- Для неавторизованных пользователей - логотип и название
-- Для авторизованнх пользователей - логотип, название, поиск, username, logout
+- For unauthorized users - logo and title
+- For authorized users - logo, title, search, username, logout
 
-### Главная страница
+### Main Page
 
-- Для неавторизованных пользователей - авторизация и регистрация
-- Для авторизованных пользователей - отображение добовленых локаций, поиск локаций , просмотр погоды
+- For unauthorized users - authorization and registration
+- For authorized users - display of added locations, location search, weather view
 
-### Страница результатов поиска локаций по названию
+### Location Search Results Page
 
-Переход на эту страницу осуществляется в результате заполнения поля ввода на главной странице, либо на странице результатов поиска.
+Transition to this page is made as a result of filling in the input field on the main page, or on the search results page.
 
-- Поле ввода для поиска по названию - такое же, как на главной странице, чтобы не возвращаться туда для каждого нового поиска
-- Список найденных локаций с кнопкой “добавить”. При нажатии на кнопку происходит переход на главную страницу
+- Input field for searching by name - the same as on the main page, so as not to return there for each new search
+- List of found locations with an "add" button. Clicking on the button leads to the main page
 
-## База данных
+## Database
 
-Используется MySQL.
+MySQL is used.
 
-### Таблица Users
+### Users Table
 Column Name | Type | Comment
 --- | --- | ---
 ID | Int | Primary key, autoincrement
 Login | Varchar | User login, username or email
 Password | Varchar | Password is stored encrypted, for example using BCrypt
 
-### Таблица Locations
+### Locations Table
 Column Name | Type | Comment
 --- | --- | ---
 ID | Int | Location ID, autoincrement, primary key
@@ -55,13 +55,14 @@ UserId | Int | User who added this location
 Latitude | Decimal | Location latitude
 Longitude | Decimal | Location longitude
 
-## Сессии
+## Sessions
 
-Используется Redis.
+Redis is used.
 
-## Получение информации о погоде
+## Weather Information Retrieval
 
-Используется OpenWeatherMap API для получения информации о погоде.
+OpenWeatherMap API is used to retrieve weather information.
+
 
 ## Интеграционные тесты
 
