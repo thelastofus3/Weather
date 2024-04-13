@@ -81,3 +81,18 @@ Bootstrap
 TestContainer
 Mockito
 JUnit 5
+
+## Login 
+![Image alt](https://github.com/thelastofus3/Weather/blob/master/login.png)
+
+## Registration 
+![Image alt](https://github.com/thelastofus3/Weather/blob/master/register.png)
+
+## Home page
+![Image alt](https://github.com/thelastofus3/Weather/blob/master/showallLoction.png)
+
+## Search page
+![Image alt](https://github.com/thelastofus3/Weather/blob/master/findLocation.png)
+
+## Forecast page
+![Image alt](https://github.com/thelastofus3/Weather/blob/master/forecast.png)
