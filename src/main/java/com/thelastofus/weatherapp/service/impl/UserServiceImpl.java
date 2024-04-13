@@ -13,13 +13,14 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly=true)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class UserServiceImpl implements UserService {
@@ -28,7 +29,6 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     @Override
-//    @Cacheable(value = "UserService::checkUserExist", key = "#userDTO.username")
     public Optional<User> checkUserExist(UserDTO userDTO)  {
         return userRepository.findByUsername(userDTO.getUsername());
     }
@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @Cacheable(value = "UserService::findByName", key = "#username")
     public User findByName(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User: " + username + "not found"));

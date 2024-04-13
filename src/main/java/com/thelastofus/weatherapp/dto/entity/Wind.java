@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@Data
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Wind {
     @JsonProperty("speed")

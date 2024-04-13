@@ -7,6 +7,7 @@ import com.thelastofus.weatherapp.util.UnixToLocalDateDeserializer;
 import com.thelastofus.weatherapp.util.UnixToLocalDateTimeDeserializer;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Getter
-@Data
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Forecast {
 

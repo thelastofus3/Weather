@@ -6,11 +6,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.thelastofus.weatherapp.util.UnixToLocalDateTimeDeserializer;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
 @Getter
-@Data
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sys {
     @JsonProperty("sunrise")

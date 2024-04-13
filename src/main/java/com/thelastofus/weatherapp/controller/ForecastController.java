@@ -38,10 +38,12 @@ public class ForecastController {
     @GetMapping()
     public String showForecastPage(@RequestParam("latitude") BigDecimal latitude, @RequestParam("longitude") BigDecimal longitude,
                                    Model model){
-        List<ForecastDTO> forecast = openWeatherApiService.findForecastForLocation(latitude,longitude);
-        List<ForecastDTO> forecastByDay = openWeatherApiService.forecastByDay(forecast);
-        model.addAttribute("forecast",forecast);
-        model.addAttribute("forecastByDay",forecastByDay);
+        List<ForecastDTO> findhourlyForecast = openWeatherApiService.findForecastForLocation(latitude,longitude);
+        List<ForecastDTO> findDailyForecast = openWeatherApiService.forecastByDay(findhourlyForecast);
+        log.info("Hourly forecast {}" ,findhourlyForecast);
+        log.info("Daily forecast {}",findDailyForecast);
+        model.addAttribute("forecast",findhourlyForecast);
+        model.addAttribute("forecastByDay",findDailyForecast);
         return "forecast/main";
     }
 }

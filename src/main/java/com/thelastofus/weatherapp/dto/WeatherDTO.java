@@ -8,14 +8,16 @@ import com.thelastofus.weatherapp.util.UnixToLocalDateTimeDeserializer;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-@Data
+
 @Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherDTO {
 

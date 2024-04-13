@@ -15,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @PasswordMatches
+@ToString
 @Builder
 public class UserDTO {
     @NotBlank(message = "Login should not be empty")

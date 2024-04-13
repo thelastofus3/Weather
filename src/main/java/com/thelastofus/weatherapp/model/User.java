@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class User implements Serializable {
     @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
     @NotBlank(message = "Password should not be empty")
     String password;
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner",orphanRemoval = true,fetch = FetchType.EAGER)
     List<Location> locations;
 
 }

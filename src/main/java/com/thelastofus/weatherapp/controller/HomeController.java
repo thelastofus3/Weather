@@ -33,12 +33,14 @@ public class HomeController {
 
     @PostMapping()
     public String addLocation(@ModelAttribute("location_add") Location location, Principal principal){
+        log.info("Adding location for user {}", principal.getName());
         locationService.saveLocation(location,principal);
         return "redirect:/";
     }
     @DeleteMapping()
     public String deleteLocation(@RequestParam("latitude") BigDecimal latitude, @RequestParam("longitude") BigDecimal longitude,
                                  Principal principal){
+        log.info("Deleting location with coordinates ({}, {}) for user {}", latitude, longitude, principal.getName());
         List<Location> locations = locationService.findLocationsByCoordinates(latitude,longitude,principal);
         if (!locations.isEmpty()){
             locationService.deleteLocation(locations.getFirst());
