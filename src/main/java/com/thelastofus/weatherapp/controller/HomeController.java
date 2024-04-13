@@ -26,7 +26,6 @@ public class HomeController {
 
     LocationService locationService;
 
-
     @ModelAttribute
     public void addAttributes(Principal principal,Model model){
         model.addAttribute("username",principal.getName());

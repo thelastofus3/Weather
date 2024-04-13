@@ -1,4 +1,4 @@
-package com.thelastofus.weatherapp.service;
+package com.thelastofus.weatherapp.service.impl;
 
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.UserRepository;

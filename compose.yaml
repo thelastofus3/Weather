@@ -2,6 +2,7 @@ version: '3.9'
 
 volumes:
   db:
+  redis-data:
 
 services:
   mysql:
@@ -17,8 +18,10 @@ services:
     - db:/var/lib/mysql
 
 
-#  redis:
-#    image: 'redis:latest'
-#    command: redis-server
-#    ports:
-#      - '6379:6379'
+  redis:
+    image: 'redis:latest'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data

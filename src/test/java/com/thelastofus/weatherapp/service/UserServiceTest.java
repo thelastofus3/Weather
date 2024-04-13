@@ -4,6 +4,8 @@ import com.thelastofus.weatherapp.dto.UserDTO;
 import com.thelastofus.weatherapp.mapper.UserMapper;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +24,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Testcontainers
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private UserMapper userMapper;
+    UserMapper userMapper;
 
     @Container
-    private static final MySQLContainer<?> mySQLContainer =
+    static final MySQLContainer<?> mySQLContainer =
             new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
 
     @DynamicPropertySource
@@ -82,6 +85,4 @@ class UserServiceTest {
             assertNotEquals(userDTO.getPassword(),u.getPassword(),"Password should not be equals");
         });
     }
-
-
 }

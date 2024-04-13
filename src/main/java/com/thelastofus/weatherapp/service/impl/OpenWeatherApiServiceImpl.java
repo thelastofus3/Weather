@@ -1,10 +1,10 @@
-package com.thelastofus.weatherapp.service;
+package com.thelastofus.weatherapp.service.impl;
 
 import com.thelastofus.weatherapp.dto.ForecastDTO;
 import com.thelastofus.weatherapp.dto.LocationDTO;
 import com.thelastofus.weatherapp.dto.WeatherDTO;
-import com.thelastofus.weatherapp.model.Location;
 import com.thelastofus.weatherapp.model.User;
+import com.thelastofus.weatherapp.service.OpenWeatherApiService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -42,9 +42,11 @@ public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
     @NonFinal
     String apiKey;
 
-    String forecastForTime = "14:00";
+    @Value("14:00")
+    @NonFinal
+    String forecastForTime;
 
-    WebClient webClient = WebClient.create();
+    WebClient webClient;
 
     @Override
     public List<LocationDTO> findLocationDTOByName(String q) {

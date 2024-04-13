@@ -1,12 +1,15 @@
-package com.thelastofus.weatherapp.service;
+package com.thelastofus.weatherapp.service.impl;
 
 import com.thelastofus.weatherapp.dto.UserDTO;
 import com.thelastofus.weatherapp.exception.UserNotFoundException;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.UserRepository;
+import com.thelastofus.weatherapp.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     @Override
+//    @Cacheable(value = "UserService::checkUserExist", key = "#userDTO.username")
     public Optional<User> checkUserExist(UserDTO userDTO)  {
         return userRepository.findByUsername(userDTO.getUsername());
     }
@@ -37,8 +41,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return userRepository.findByUsername(name)
-                .orElseThrow(() -> new UserNotFoundException("User: " + name + "not found"));
+//    @Cacheable(value = "UserService::findByName", key = "#username")
+    public User findByName(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User: " + username + "not found"));
     }
 }

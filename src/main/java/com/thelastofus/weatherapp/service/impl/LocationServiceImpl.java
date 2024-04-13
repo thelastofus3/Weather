@@ -1,13 +1,15 @@
-package com.thelastofus.weatherapp.service;
+package com.thelastofus.weatherapp.service.impl;
 
 import com.thelastofus.weatherapp.exception.UserNotFoundException;
 import com.thelastofus.weatherapp.model.Location;
 import com.thelastofus.weatherapp.model.User;
 import com.thelastofus.weatherapp.repository.LocationRepository;
 import com.thelastofus.weatherapp.repository.UserRepository;
+import com.thelastofus.weatherapp.service.LocationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +49,4 @@ public class LocationServiceImpl implements LocationService {
                 .orElseThrow(() -> new UserNotFoundException("User: " + principal.getName() + " not found"));
         return locationRepository.findByLatitudeAndLongitudeAndOwner(latitude,longitude,user);
     }
-
 }
