@@ -44,7 +44,7 @@ Column Name | Type | Comment
 --- | --- | ---
 ID | Int | Primary key, autoincrement
 Login | Varchar | User login, username or email
-Password | Varchar | Password is stored encrypted, for example using BCrypt
+Password | Varchar | Password is stored encrypted, used BCrypt
 
 ### Locations Table
 Column Name | Type | Comment
@@ -64,6 +64,20 @@ Redis is used.
 OpenWeatherMap API is used to retrieve weather information.
 
 
-## Интеграционные тесты
+## Integration Tests
 
-Покрытие тестами связки слоя данных с классами-сервисами, отвечающими за пользователей и локации.
+Test coverage of the bundle of the data layer with the service classes responsible for users and locations.
+
+## Technologies Used 
+Spring Data JPA
+Spring Boot
+Spring Security
+Spring Sessions
+Thymeleaf
+Docker
+MySql
+Redis
+Bootstrap
+TestContainer
+Mockito
+JUnit 5
