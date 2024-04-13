@@ -69,17 +69,17 @@ OpenWeatherMap API is used to retrieve weather information.
 Test coverage of the bundle of the data layer with the service classes responsible for users and locations.
 
 ## Technologies Used 
-Spring Data JPA
-Spring Boot
-Spring Security
-Spring Sessions
-Thymeleaf
-Docker
-MySql
-Redis
-Bootstrap
-TestContainer
-Mockito
+Spring Data JPA,
+Spring Boot,
+Spring Security,
+Spring Sessions,
+Thymeleaf,
+Docker,
+MySql,
+Redis,
+Bootstrap,
+TestContainer,
+Mockito,
 JUnit 5
 
 ## Login 
