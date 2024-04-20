@@ -9,11 +9,9 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
@@ -73,12 +71,12 @@ class OpenWeatherApiServiceTest {
         weatherDTO.setName("Test Weather");
         List<WeatherDTO> weatherDTOList = Collections.singletonList(weatherDTO);
 
-        when(service.showLocation(any(User.class))).thenReturn(weatherDTOList);
+        when(service.showLocations(any(User.class))).thenReturn(weatherDTOList);
         when(requestHeadersUriSpec.uri(anyString())).thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.bodyToFlux(WeatherDTO.class)).thenReturn(Flux.just(weatherDTO));
 
-        List<WeatherDTO> result = service.showLocation(user);
+        List<WeatherDTO> result = service.showLocations(user);
         assertEquals(weatherDTOList, result);
     }
 

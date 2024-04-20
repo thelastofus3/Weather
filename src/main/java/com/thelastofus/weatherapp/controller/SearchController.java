@@ -34,7 +34,7 @@ public class SearchController {
         log.info("Show locations for user {}", principal.getName());
         User user = userService.findByName(principal.getName());
         if (user.getLocations() != null){
-            model.addAttribute("weathers",openWeatherApiService.showLocation(user));
+            model.addAttribute("weathers",openWeatherApiService.showLocations(user));
         }
         return "main/home";
     }

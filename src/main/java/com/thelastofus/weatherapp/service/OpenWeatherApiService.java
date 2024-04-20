@@ -12,7 +12,7 @@ public interface OpenWeatherApiService {
 
     List<LocationDTO> findLocationDTOByName(String q);
 
-    List<WeatherDTO> showLocation(User user);
+    List<WeatherDTO> showLocations(User user);
 
     List<ForecastDTO> findForecastForLocation(BigDecimal latitude,BigDecimal longitude);
 

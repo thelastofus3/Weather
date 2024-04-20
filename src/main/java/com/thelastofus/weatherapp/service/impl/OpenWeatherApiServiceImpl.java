@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -54,7 +57,7 @@ public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
     }
 
     @Override
-    public List<WeatherDTO> showLocation(User user) {
+    public List<WeatherDTO> showLocations(User user) {
         return user.getLocations().stream()
                 .flatMap(location -> {
                     List<WeatherDTO> weatherDTOs = getDataFromAPI(location.getLatitude(), location.getLongitude(), findLocation, WeatherDTO.class);
@@ -88,18 +91,19 @@ public class OpenWeatherApiServiceImpl implements OpenWeatherApiService {
     }
 
     private <T> List<T> getDataFromAPI(Object param1, Object param2, String url, Class<T> type) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("appid", apiKey)
-                .queryParam("units", "metric");
-
+        String builder = url
+                + "?appid=" + apiKey
+                + "&units=" + "metric";
         if (param1 instanceof String) {
-            builder.queryParam("q", param1).queryParam("limit", 4);
+            builder += "&q=" + param1
+                    + "&limit=" + 4;
         } else if (param1 instanceof BigDecimal) {
-            builder.queryParam("lat", param1).queryParam("lon", param2);
+            builder += "&lat=" + param1
+                    + "&lon=" + param2;
         }
 
         return webClient.get()
-                .uri(builder.toUriString())
+                .uri(URI.create(builder))
                 .retrieve()
                 .bodyToFlux(type).collectList().block();
     }

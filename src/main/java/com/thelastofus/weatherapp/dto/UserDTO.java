@@ -18,8 +18,8 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @Builder
 public class UserDTO {
-    @NotBlank(message = "Login should not be empty")
-    @Size(min = 5,max = 100,message = "Login should be between 5 and 100 characters")
+    @NotBlank(message = "Username should not be empty")
+    @Size(min = 5,max = 100,message = "Username should be between 5 and 100 characters")
     String username;
     @NotBlank(message = "Password should not be empty")
     @Size(min = 5,max = 100,message = "Password should be between 5 and 100 characters")
